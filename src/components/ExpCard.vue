@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+
+defineProps<{
+  img: string
+  title: string
+  price: string
+  availabilty: boolean
+}>()
 
 </script>
 

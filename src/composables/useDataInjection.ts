@@ -4,6 +4,11 @@
 // https://jsonkeeper.com/b/34CU
 
 export const useDataInjection = () => {
+
+  const response = fetch("https://www.jsonkeeper.com/b/34CU");
+  console.log('response', response)
+
+
   const experiences = () => {}
   const getDetailsById = () => {}
 
