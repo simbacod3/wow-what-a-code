@@ -25,6 +25,13 @@
     right: 0;
     padding-inline: 3rem;
     padding-block-start: 1em;
+    height: 4rem;
+    background-color: white;
+    z-index: 10;
+  }
+
+  &-main {
+    margin-top: 4rem;
   }
 }
 </style>

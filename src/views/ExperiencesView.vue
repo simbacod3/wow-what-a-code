@@ -46,7 +46,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wac-experiences-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
