@@ -30,10 +30,8 @@ describe("ExperiencesView.vue", () => {
     expect(cards.length).toBe(12);
 
     const firstCard = cards[0];
-    expect(firstCard.props("name")).toBe("Single Room");
-    expect(firstCard.props("img")).toBe("https://placehold.co/600x400");
-    expect(firstCard.props("type")).toBe("single");
-    expect(firstCard.props("price")).toBe(50);
-    expect(firstCard.props("availability")).toBe(true);
+    const firstExpectedData = expected.record[0];
+
+    expect(firstCard.props("data")).toEqual(firstExpectedData);
   });
 });

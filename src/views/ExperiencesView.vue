@@ -2,9 +2,9 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import ExpCard from "@/components/expCard.vue";
-import type { Room } from "@/components/Room";
+import type { Experience } from "@/components/Experience";
 
-const datas = ref<Room[]>([]);
+const datas = ref<Experience[]>([]);
 
 const router = useRouter();
 
@@ -14,7 +14,7 @@ const fetchData = async () => {
     const result = await response.json();
 
     if (result && result.record) {
-      datas.value = result.record as Room[];
+      datas.value = result.record as Experience[];
     }
   } catch (error) {
     console.error("Error while fecthing api :", error);
@@ -36,11 +36,7 @@ onMounted(() => {
       <ExpCard
         v-for="data in datas"
         :key="data.id"
-        :name="data.name"
-        :img="data.img"
-        :type="data.type"
-        :price="data.price"
-        :availability="data.availability"
+        :data="data"
         @click="handleCardClick(data.id)"
       />
   </main>

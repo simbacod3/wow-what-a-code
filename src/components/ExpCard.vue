@@ -1,21 +1,23 @@
 <script setup lang="ts">
-defineProps<{
-  name: string;
-  img: string;
-  type: string;
-  price: number;
-  availability: boolean
-}>()
-</script>
+import type { Experience } from "@/components/Experience";
 
+defineProps({
+  data: {
+    type: Object as () => Experience,
+    required: true,
+  },
+});
+</script>
 <template>
   <div class="wac-exp-card">
-    <h3>{{ name }}</h3>
-    <img :src="img" />
+    <h3>{{ data.name }}</h3>
+    <img
+      :src="data.img"
+      :alt="`Image de ${data.name}`" />
     <div class="card-info">
-      <span>Type: {{ type }} </span>
-      <span>Price: {{ price }} $ </span>
-      <span>Available: {{ availability ? 'Yes' : 'No' }}</span>
+      <span>Type: {{ data.type }} </span>
+      <span>Price: {{ data.price }} $ </span>
+      <span>Available: {{ data.availability ? 'Yes' : 'No' }}</span>
     </div>
   </div>
 </template>

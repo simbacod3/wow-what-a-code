@@ -1,4 +1,4 @@
-export interface Room {
+export interface Experience {
   id: number;
   name: string;
   img: string;
