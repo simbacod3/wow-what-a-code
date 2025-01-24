@@ -18,6 +18,13 @@
 
 <style scoped lang="scss">
 .wac {
-
+  &-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-inline: 3rem;
+    padding-block-start: 1em;
+  }
 }
 </style>
