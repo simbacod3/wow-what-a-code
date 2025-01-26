@@ -31,11 +31,15 @@ defineProps({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
 }
 
 .wac-exp-card img {
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: auto;
   object-fit: cover;
   margin-bottom: 8px;
 }
@@ -44,7 +48,7 @@ defineProps({
   display: flex;
   width: 100%;
   padding: 0 16px;
-  font-size: 12px
+  font-size: 12px;
 }
 
 .card-info span {

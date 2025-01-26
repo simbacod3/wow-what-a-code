@@ -9,6 +9,8 @@ import Filter from "@components/Filter.vue"
 const datas = ref<Experience[]>([]);
 const selectedTypes = ref<string[]>([]);
 
+
+
 const router = useRouter();
 
 const fetchData = async () => {
@@ -24,20 +26,13 @@ const fetchData = async () => {
   }
 };
 
-// exerience filtré en foncton du toggle
 const filteredExperiences = computed(() => {
-  //si il n'y a pas de filtres on renvoit le tableau datas
   if (selectedTypes.value.length === 0) {
     return datas.value;
   }
-  //si on recoit un filtre
-  //on fait un filter sur le tableau datas,
-  // pour rechercher les elements ayant un type correspondant au type reçu dans le tableau selectedTypes
    return datas.value.filter((experience) => selectedTypes.value.includes(experience.type));
 
 });
-
-
 
 const handleCardClick = (id: number) => {
   router.push(`/experience/${id}`);
@@ -49,13 +44,15 @@ onMounted(() => {
 </script>
 
 <template>
-      <h6>Type of room :</h6>
+  <div class="filters">
+    <h6>Type of room :</h6>
     <Filter
       :selectedTypes="selectedTypes"
       @update:selectedTypes="selectedTypes = $event"
     />
-   <main class="wac-experiences-page page">
+  </div>
 
+   <main class="wac-experiences-page">
       <ExpCard
         v-for="experience in filteredExperiences"
         :key="experience.id"
@@ -67,7 +64,11 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
- .wac-experiences-page {
+.filters {
+  padding: 20px;
+}
+
+.wac-experiences-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -81,5 +82,6 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 }
+
 
 </style>
