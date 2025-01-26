@@ -1,25 +1,43 @@
+
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import ExpCard from "@/components/expCard.vue";
 import type { Experience } from "@/components/Experience";
+import Filter from "@components/Filter.vue"
 
 const datas = ref<Experience[]>([]);
+const selectedTypes = ref<string[]>([]);
 
 const router = useRouter();
 
 const fetchData = async () => {
   try {
-    const response = await fetch("https://api.jsonbin.io/v3/qs/6793cb31e41b4d34e47e177b");
+    const response = await fetch("https://api.jsonbin.io/v3/b/67943f71e41b4d34e47e3d95");
     const result = await response.json();
 
-    if (result && result.record) {
-      datas.value = result.record as Experience[];
+    if (result && result.record.record) {
+      datas.value = result.record.record as Experience[];
     }
   } catch (error) {
     console.error("Error while fecthing api :", error);
   }
 };
+
+// exerience filtré en foncton du toggle
+const filteredExperiences = computed(() => {
+  //si il n'y a pas de filtres on renvoit le tableau datas
+  if (selectedTypes.value.length === 0) {
+    return datas.value;
+  }
+  //si on recoit un filtre
+  //on fait un filter sur le tableau datas,
+  // pour rechercher les elements ayant un type correspondant au type reçu dans le tableau selectedTypes
+   return datas.value.filter((experience) => selectedTypes.value.includes(experience.type));
+
+});
+
+
 
 const handleCardClick = (id: number) => {
   router.push(`/experience/${id}`);
@@ -31,19 +49,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="wac-experiences-page page">
-    <h1 v-if="!datas">No results</h1>
+      <h6>Type of room :</h6>
+    <Filter
+      :selectedTypes="selectedTypes"
+      @update:selectedTypes="selectedTypes = $event"
+    />
+   <main class="wac-experiences-page page">
+
       <ExpCard
-        v-for="data in datas"
-        :key="data.id"
-        :data="data"
-        @click="handleCardClick(data.id)"
+        v-for="experience in filteredExperiences"
+        :key="experience.id"
+        :data="experience"
+        @click="handleCardClick(experience.id)"
       />
-  </main>
+    </main>
+
 </template>
 
 <style lang="scss" scoped>
-.wac-experiences-page {
+ .wac-experiences-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;

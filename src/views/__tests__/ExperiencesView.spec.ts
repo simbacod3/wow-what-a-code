@@ -1,4 +1,3 @@
-
 import flushPromises from 'flush-promises';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -30,7 +29,7 @@ describe("ExperiencesView.vue", () => {
     expect(cards.length).toBe(12);
 
     const firstCard = cards[0];
-    const firstExpectedData = expected.record[0];
+    const firstExpectedData = expected.record.record[0];
 
     expect(firstCard.props("data")).toEqual(firstExpectedData);
   });
