@@ -6,7 +6,11 @@ const { experiences = [] } = useDataInjection();
 
 <template>
   <main class="wac-experiences-page page">
-    <h1 v-if="experiences.length === 0">No results</h1>
+    <h1>Discover our experiences</h1>
+    <div class="wac-experiences-page__filters-bar">
+      <span>{{ currentDay }}</span>
+    </div>
+    <h2 v-if="experiences.length === 0">No results</h2>
     <ul v-else class="wac-experiences-page__list">
       <li v-for="experience in experiences" :key="experience.id">
         <ExpCard :experience="experience" />
