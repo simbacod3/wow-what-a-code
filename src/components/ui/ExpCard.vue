@@ -18,7 +18,7 @@ defineProps<ExpCardInterface>();
     />
     <div class="wac-exp-card__content">
       <div class="wac-exp-card__info">
-        <router-link :to="`experiences/${experience.id}`" class="wac-exp-card__link"
+        <router-link :to="`experience/${experience.id}`" class="wac-exp-card__link"
           ><h3>{{ experience.name }}</h3>
         </router-link>
         <p>{{ experience.type }} - {{ experience.price }}€</p>
