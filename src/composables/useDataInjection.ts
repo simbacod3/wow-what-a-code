@@ -1,10 +1,13 @@
 import { ref } from "vue";
 import type { Experience } from "@/interfaces/experience";
+import type { Filter } from "@/interfaces/filters";
+import { FilterType } from "@/interfaces/filters";
 import { useFetch } from "@composables/useFetch";
 import { onMounted } from "vue";
 
 export const useDataInjection = () => {
   const experiences = ref<Array<Experience>>([]);
+  const filters = ref<Array<Filter>>([]);
 
   const fetchExperiences = async () => {
     const { data, error } = await useFetch<Experience[]>("/api/experiences");
@@ -13,6 +16,40 @@ export const useDataInjection = () => {
     }
     if (data.value !== undefined) {
       experiences.value = data.value;
+
+      // This is where we would normally set the filters from the API based on the data
+      // but for the sake of this example, we will hardcode the filters
+      const lowestPrice = Math.min(...experiences.value.map((exp) => exp.price));
+      const highestPrice = Math.max(...experiences.value.map((exp) => exp.price));
+      filters.value = [
+        {
+          type: FilterType.Select,
+          label: "Select a type",
+          values: experiences.value.reduce((acc: string[], currentExp) => {
+            if (!acc.includes(currentExp.type)) {
+              acc.push(currentExp.type);
+            }
+            return acc;
+          }, []),
+          property: "type",
+        },
+        {
+          type: FilterType.Checkbox,
+          label: "Filter by Availability",
+          property: "availability",
+        },
+        {
+          type: FilterType.Range,
+          label: "",
+          min: lowestPrice,
+          max: highestPrice,
+          property: "price",
+        },
+        {
+          type: FilterType.Date,
+          label: "",
+        },
+      ];
     }
   };
 
@@ -26,6 +63,7 @@ export const useDataInjection = () => {
 
   return {
     experiences,
+    filters,
     getDetailsById,
   };
 };
