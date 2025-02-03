@@ -17,7 +17,13 @@ const minEndDate = computed(() => {
 <template>
   <div>
     <label for="startDate"> Start Date: </label>
-    <input name="startDate" type="date" v-model="startDate" :min="minStartDate" />
+    <input
+      name="startDate"
+      type="date"
+      v-model="startDate"
+      :min="minStartDate"
+      :max="!endDate ? '' : endDate"
+    />
     <br />
     <label for="endDate"> End Date: </label>
     <input name="endDate" type="date" v-model="endDate" :min="minEndDate" />
