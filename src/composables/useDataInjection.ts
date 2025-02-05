@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { Experience } from "@/interfaces/experience";
 import type { Filter } from "@/interfaces/filters";
 import { FilterType } from "@/interfaces/filters";
@@ -8,6 +8,7 @@ import { onMounted } from "vue";
 export const useDataInjection = () => {
   const experiences = ref<Array<Experience>>([]);
   const filters = ref<Array<Filter>>([]);
+  const isLoading = ref<boolean>(true);
 
   const fetchExperiences = async () => {
     const { data, error } = await useFetch<Experience[]>("/api/experiences");
@@ -51,19 +52,20 @@ export const useDataInjection = () => {
         },
       ];
     }
+    isLoading.value = false;
   };
 
   onMounted(() => {
     fetchExperiences();
   });
 
-  const getDetailsById = (id: number) => {
-    return experiences.value.find((exp) => exp.id === id);
-  };
+  const getDetailsById = (id: number) =>
+    computed(() => experiences.value.find((exp) => exp.id === id));
 
   return {
     experiences,
     filters,
+    isLoading,
     getDetailsById,
   };
 };

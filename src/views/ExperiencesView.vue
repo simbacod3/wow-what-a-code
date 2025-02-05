@@ -40,21 +40,22 @@ const filteredExperiences = computed(() => {
     });
   });
 });
-const defaultActiveFilters = computed(() => {
-  return filters.value.map<FilterValue>((filter) => {
+
+const getDefaultActiveFilters = () =>
+  filters.value.map<FilterValue>((filter) => {
     if (filter.type === FilterType.Checkbox) return false;
     if (filter.type === FilterType.Range) return [filter.min, filter.max];
     if (filter.type === FilterType.Date) return ["", ""];
     return [];
   });
-});
-const activeFilters = ref<Array<FilterValue>>(defaultActiveFilters.value);
+
+const activeFilters = ref<Array<FilterValue>>(getDefaultActiveFilters());
 
 const isActiveFilter = (filter: FilterValue) => {
   return Array.isArray(filter) ? filter.length > 0 : filter !== false;
 };
 
-watch(filters, () => (activeFilters.value = defaultActiveFilters.value));
+watch(filters, () => (activeFilters.value = getDefaultActiveFilters()));
 </script>
 
 <template>
@@ -63,7 +64,7 @@ watch(filters, () => (activeFilters.value = defaultActiveFilters.value));
     <div class="wac-experiences-page__filters-bar">
       <div class="wac-experiences-page__filters-title">
         <span>Today is: {{ currentDayInFrenchFormat }}</span>
-        <button v-if="filters.length > 0" @click="activeFilters = defaultActiveFilters">
+        <button v-if="filters.length > 0" @click="activeFilters = getDefaultActiveFilters()">
           Reset filters
         </button>
       </div>

@@ -79,6 +79,10 @@ a:hover {
   text-decoration: underline;
 }
 
+button:focus {
+  outline: 2px solid var(--color-border-hover);
+}
+
 h1,
 h2,
 h3,
@@ -88,6 +92,14 @@ h6,
 span,
 p {
   margin: 0;
+}
+
+.alert-msg {
+  color: red;
+}
+
+.sucess-msg {
+  color: green;
 }
 
 .page {

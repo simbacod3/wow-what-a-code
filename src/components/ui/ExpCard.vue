@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Experience } from "@/interfaces/experience";
+import type { BookedExperience, Experience } from "@/interfaces/experience";
 import AvailabilityBadge from "@components/ui/AvailabilityBadge.vue";
 
 export interface ExpCardInterface {
-  experience: Experience;
+  experience: Experience | BookedExperience;
 }
 defineProps<ExpCardInterface>();
 </script>
@@ -18,10 +18,13 @@ defineProps<ExpCardInterface>();
     />
     <div class="wac-exp-card__content">
       <div class="wac-exp-card__info">
-        <router-link :to="`experience/${experience.id}`" class="wac-exp-card__link"
+        <router-link :to="`/experience/${experience.id}`" class="wac-exp-card__link"
           ><h3>{{ experience.name }}</h3>
         </router-link>
         <p>{{ experience.type }} - {{ experience.price }}€</p>
+        <p v-if="'startDate' in experience">
+          From {{ experience.startDate }} to {{ experience.endDate }}
+        </p>
       </div>
     </div>
   </div>
@@ -30,12 +33,14 @@ defineProps<ExpCardInterface>();
 <style scoped lang="scss">
 .wac-exp-card {
   position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
 
   &__badge {
     z-index: 1;
     position: absolute;
     top: 8px;
-    right: 4px;
+    right: 8px;
   }
 
   &__image {

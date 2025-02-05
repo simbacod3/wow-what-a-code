@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LogoBaliVibes from "../icons/LogoBaliVibes.vue";
+import Basket from "@components/ui/Basket.vue";
 </script>
 
 <template>
@@ -17,7 +18,7 @@ import LogoBaliVibes from "../icons/LogoBaliVibes.vue";
         <router-link to="/discover">Popular</router-link>
       </li>
       <li>
-        <button class="btn--xs">Basket</button>
+        <Basket />
       </li>
       <li>
         <div class="avatar text-gray-000 avatar--xs" data-text="AM"></div>
@@ -37,5 +38,16 @@ import LogoBaliVibes from "../icons/LogoBaliVibes.vue";
     list-style: none;
     padding-inline-start: 0;
   }
+}
+
+.wac-basket__list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: max-content;
+  list-style: none;
+  gap: 16px 8px;
+  padding: 0;
+  width: 100%;
+  margin: 0;
 }
 </style>

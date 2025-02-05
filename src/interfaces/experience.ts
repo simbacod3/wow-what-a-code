@@ -6,3 +6,8 @@ export interface Experience {
   price: number;
   availability: boolean;
 }
+
+export interface BookedExperience extends Experience {
+  startDate: string;
+  endDate: string;
+}
